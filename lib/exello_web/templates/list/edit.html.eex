@@ -1,0 +1,5 @@
+<h1>Edit List</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.board_list_path(@conn, :update, @board, @list)) %>
+
+<span><%= link "Back", to: Routes.board_list_path(@conn, :index, @board) %></span>

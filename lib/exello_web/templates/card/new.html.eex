@@ -1,0 +1,5 @@
+<h1>New Card</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.board_list_card_path(@conn, :create, @board, @list)) %>
+
+<span><%= link "Back", to: Routes.board_list_card_path(@conn, :index, @board, @list) %></span>

@@ -1,0 +1,13 @@
+<h1>Show List</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @list.name %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.board_list_path(@conn, :edit, @board, @list) %></span>
+<span><%= link "Back", to: Routes.board_list_path(@conn, :index, @board) %></span>

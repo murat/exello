@@ -1,0 +1,26 @@
+<h1>Listing Lists</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for list <- @lists do %>
+    <tr>
+      <td><%= list.name %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.board_list_path(@conn, :show, @board, list) %></span>
+        <span><%= link "Edit", to: Routes.board_list_path(@conn, :edit, @board, list) %></span>
+        <span><%= link "Delete", to: Routes.board_list_path(@conn, :delete, @board, list), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New List", to: Routes.board_list_path(@conn, :new, @board) %></span>
