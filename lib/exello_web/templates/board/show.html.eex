@@ -55,7 +55,7 @@
     </div>
   <% end %>
 
-  <div data-list-id="" class="list unsortable min-h-full w-96" style="min-width: 24rem;">
+  <div data-list-id="" class="list unsortable min-h-full w-96 opacity-40 hover:opacity-100" style="min-width: 24rem;">
     <div class="bg-gray-100 px-3 py-3 shadow column-width rounded mr-4">
       <input type="text" class="create-list mt-3 mb-3 min-w-full rounded" placeholder="Create a new list"/>
     </div>

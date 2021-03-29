@@ -125,7 +125,6 @@ if (document.getElementById('board')) {
   new Sortable(document.getElementById('board'), {
     animation: 150,
     handle: '.handle',
-    ghostClass: 'opacity-30',
     filter: '.unsortable',
     onMove: (e) => {
       return e.related.className.indexOf('unsortable') === -1;
@@ -148,7 +147,6 @@ if (document.getElementById('board')) {
       group: 'shared',
       handle: '.handle',
       animation: 150,
-      ghostClass: 'opacity-30',
       onEnd: function (e) {
         // console.log('card moved from', e.from.getAttribute("data-list-id"), 'to', e.to.getAttribute("data-list-id"), 'with idx', e.oldIndex, 'as idx', e.newIndex);
         let data = {

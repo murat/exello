@@ -7,3 +7,8 @@
 @import "./components/buttons.scss";
 
 iframe { all: unset; height: 0 !important; }
+
+.sortable-ghost,
+.sortable-chosen {
+  transform: scale(1.05, 1.05) rotate(1deg) !important;
+}
