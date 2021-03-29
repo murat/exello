@@ -1,5 +1,9 @@
-<h1>Edit List</h1>
+<div class="container mx-auto">
+  <div class="flex justify-between items-center px-3">
+    <h1 class="text-indigo-500 text-xl font-bold">
+      <%= link "<", to: Routes.board_path(@conn, :index) %> Edit List
+    </h1>
+  </div>
 
-<%= render "form.html", Map.put(assigns, :action, Routes.board_list_path(@conn, :update, @board, @list)) %>
-
-<span><%= link "Back", to: Routes.board_list_path(@conn, :index, @board) %></span>
+  <%= render "form.html", Map.put(assigns, :action, Routes.board_list_path(@conn, :update, @board, @list)) %>
+</div>

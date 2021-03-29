@@ -1,5 +1,14 @@
-<h1>Edit Board</h1>
+<div class="container mx-auto">
+  <div class="flex justify-between items-center px-3">
+    <h1 class="text-indigo-500 text-xl font-bold">
+      Edit Board
+    </h1>
 
-<%= render "form.html", Map.put(assigns, :action, Routes.board_path(@conn, :update, @board)) %>
+    <div>
+      <%= icon_button(icon: "back", class: "btn sm font-sm bg-gray just-icon", to: Routes.board_path(@conn, :index)) %>
+      <%= icon_button(icon: "new", class: "btn sm font-sm bg-green just-icon", to: Routes.board_path(@conn, :new)) %>
+    </div>
+  </div>
 
-<span><%= link "Back", to: Routes.board_path(@conn, :index) %></span>
+  <%= render "form.html", Map.put(assigns, :action, Routes.board_path(@conn, :update, @board)) %>
+</div>

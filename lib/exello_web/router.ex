@@ -16,8 +16,6 @@ defmodule ExelloWeb.Router do
   scope "/", ExelloWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
-
     resources "/boards", BoardController do
       resources "/lists", ListController do
         resources "/cards", CardController
@@ -26,9 +24,12 @@ defmodule ExelloWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", ExelloWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", ExelloWeb.Api do
+    pipe_through :api
+
+    resources "/lists", ListController
+    resources "/cards", CardController
+  end
 
   # Enables LiveDashboard only for development
   #

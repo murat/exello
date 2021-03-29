@@ -1,26 +1,20 @@
-<h1>Listing Lists</h1>
+<div class="container mx-auto">
+  <div class="flex justify-between items-center">
+    <h1 class="text-indigo-500 text-xl font-bold m-3">Listing Lists</h1>
+    <%= link "New Board", to: Routes.board_list_path(@conn, :new, @board), class: "text-white bg-green-500 p-3 rounded" %>
+  </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
+  <div class="flex flex-wrap justify-start items-center">
+    <%= for list <- @lists do %>
+      <div class="p-3 w-1/4">
+        <div class="shadow rounded p-5">
+          <div class="flex justify-between items-center">
+            <%= link list.name, to: Routes.board_list_path(@conn, :show, @board, list), class: "text-lg font-bold" %>
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for list <- @lists do %>
-    <tr>
-      <td><%= list.name %></td>
-
-      <td>
-        <span><%= link "Show", to: Routes.board_list_path(@conn, :show, @board, list) %></span>
-        <span><%= link "Edit", to: Routes.board_list_path(@conn, :edit, @board, list) %></span>
-        <span><%= link "Delete", to: Routes.board_list_path(@conn, :delete, @board, list), method: :delete, data: [confirm: "Are you sure?"] %></span>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
-
-<span><%= link "New List", to: Routes.board_list_path(@conn, :new, @board) %></span>
+            <%= link "x", to: Routes.board_list_path(@conn, :delete, @board, list), method: :delete, data: [confirm: "Are you sure?"], class: "text-red-500" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

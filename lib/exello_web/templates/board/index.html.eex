@@ -1,26 +1,22 @@
-<h1>Listing Boards</h1>
+<div class="container mx-auto">
+  <div class="flex justify-between items-center">
+    <h1 class="text-indigo-500 text-xl font-bold m-3">Listing Boards</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
+    <%= icon_button(icon: "new", class: "btn sm font-sm bg-green just-icon", to: Routes.board_path(@conn, :new)) %>
+  </div>
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for board <- @boards do %>
-    <tr>
-      <td><%= board.name %></td>
+  <div class="flex justify-start items-center">
+    <%= for board <- @boards do %>
+      <div class="p-3 w-1/4">
+        <div class="shadow rounded p-5">
+          <div class="flex justify-between items-center">
+            <%= link board.name, to: Routes.board_path(@conn, :show, board), class: "text-lg font-bold" %>
 
-      <td>
-        <span><%= link "Show", to: Routes.board_path(@conn, :show, board) %></span>
-        <span><%= link "Edit", to: Routes.board_path(@conn, :edit, board) %></span>
-        <span><%= link "Delete", to: Routes.board_path(@conn, :delete, board), method: :delete, data: [confirm: "Are you sure?"] %></span>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
 
-<span><%= link "New Board", to: Routes.board_path(@conn, :new) %></span>
+            <%= icon_button(icon: "delete", class: "btn sm font-sm bg-red just-icon", to: Routes.board_path(@conn, :delete, board), method: :delete, data: [confirm: "Are you sure?"]) %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

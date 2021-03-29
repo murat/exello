@@ -17,8 +17,8 @@ defmodule Exello.Lists do
       [%List{}, ...]
 
   """
-  def list_lists do
-    Repo.all(List)
+  def list_lists(board_id) do
+    Repo.all(from l in List, where: l.board_id == ^board_id, order_by: :rank)
   end
 
   @doc """
@@ -49,9 +49,9 @@ defmodule Exello.Lists do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_list(attrs \\ %{}) do
+  def create_list(board_id, attrs \\ %{}) do
     %List{}
-    |> List.changeset(attrs)
+    |> List.changeset(Map.merge(%{"board_id" => board_id}, attrs))
     |> Repo.insert()
   end
 
@@ -100,5 +100,11 @@ defmodule Exello.Lists do
   """
   def change_list(%List{} = list, attrs \\ %{}) do
     List.changeset(list, attrs)
+  end
+
+  def reorder_lists(lists \\ []) do
+    for {list, i} <- Enum.with_index(lists) do
+      __MODULE__.update_list(list, %{"position" => i})
+    end
   end
 end

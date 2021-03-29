@@ -1,13 +1,63 @@
-<h1>Show Board</h1>
+<div class="lg:flex lg:items-center lg:justify-between px-5">
+  <div class="flex-1 min-w-0">
+    <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
+      <%= @board.name %>
+    </h2>
+  </div>
+  <div class="mt-5 flex lg:mt-0 lg:ml-4">
+    <%= icon_button(icon: "back", class: "btn sm font-sm bg-gray just-icon", to: Routes.board_path(@conn, :index)) %>
+    <%= icon_button(icon: "edit", class: "btn sm font-sm bg-indigo just-icon ml-2", to: Routes.board_path(@conn, :edit, @board)) %>
+    <%= icon_button(icon: "delete", class: "btn sm font-sm bg-red just-icon ml-2", to: Routes.board_path(@conn, :delete, @board), method: :delete, data: [confirm: "Are you sure?"]) %>
+  </div>
+</div>
 
-<ul>
+<div id="board" data-board-id="<%= @board.id %>" class="flex justify-start px-5 py-5 overflow-x-auto">
+  <%= for list <- @board.lists do %>
+    <div data-list-id="<%= list.id %>" class="list min-h-full w-96" style="min-width: 24rem;">
+      <div class="bg-<%= if(list.color, do: list.color, else: "gray") %>-100 px-3 py-3 shadow column-width rounded mr-4">
+        <div class="text-gray-500 font-semibold font-sans tracking-wide text-sm relative flex justify-start">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="handle opacity-10 cursor-move hover:opacity-40" style="width: 1rem; display: inline !important;" fill="currentColor">
+            <path stroke="#374151" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8V4m0 0h4M3 4l4 4m8 0V4m0 0h-4m4 0l-4 4m-8 4v4m0 0h4m-4 0l4-4m8 4l-4-4m4 4v-4m0 4h-4" />
+          </svg>
+          <p class="text-gray-700 font-semibold font-sans tracking-wide text-sm pl-3"><%= list.name %></p>
+          <%= link raw("<svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' style='width: 1rem; display: inline !important;' stroke='currentColor'>
+                      <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16' />
+                    </svg>"), to: Routes.board_list_path(@conn, :delete, @board, list), method: :delete, data: [confirm: "Are you sure?"], class: "absolute right-0 text-red-500" %>
+        </div>
 
-  <li>
-    <strong>Name:</strong>
-    <%= @board.name %>
-  </li>
+        <input type="text" class="add-to-list mt-3 mb-3 min-w-full rounded" placeholder="Write something to do..."/>
 
-</ul>
+        <div data-list-id="<%= list.id %>" class="sortable-list">
+          <%= for card <- list.cards do %>
+            <div data-card-id="<%= card.id %>" class="sortable-card bg-<%= if(card.color, do: "#{card.color}-400", else: "white") %> shadow rounded px-3 pt-3 pb-5 my-3 min-w-full border border-<%= if(card.color, do: card.color, else: "white") %>">
+              <div class="flex justify-between items-start">
+                <p class="text-gray-700 font-semibold font-sans tracking-wide text-sm">
+                  <%= card.title %>
+                </p>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="handle opacity-10 cursor-move hover:opacity-40" style="max-width: 1rem; display: inline !important;" fill="currentColor">
+                  <path stroke="#374151" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8V4m0 0h4M3 4l4 4m8 0V4m0 0h-4m4 0l-4 4m-8 4v4m0 0h4m-4 0l4-4m8 4l-4-4m4 4v-4m0 4h-4" />
+                </svg>
+              </div>
+              <div class="flex mt-4 justify-between items-center">
+                <span class="text-sm text-gray-600"><%= card.updated_at %></span>
+                  <div
+                    class="px-3 h-6 rounded-full text-xs font-semibold flex items-center" class="bg-indigo-100 text-indigo-700">
+                    <span class="w-2 h-2 rounded-full mr-1" class="bg-indigo-400"></span>
+                    <span>
+                    <%= card.card_type %>
+                    </span>
+                  </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
 
-<span><%= link "Edit", to: Routes.board_path(@conn, :edit, @board) %></span>
-<span><%= link "Back", to: Routes.board_path(@conn, :index) %></span>
+  <div data-list-id="" class="list unsortable min-h-full w-96" style="min-width: 24rem;">
+    <div class="bg-gray-100 px-3 py-3 shadow column-width rounded mr-4">
+      <input type="text" class="create-list mt-3 mb-3 min-w-full rounded" placeholder="Create a new list"/>
+    </div>
+  </div>
+</div>

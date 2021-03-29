@@ -39,6 +39,7 @@ module.exports = (env, options) => {
           use: [
             MiniCssExtractPlugin.loader,
             'css-loader',
+            'postcss-loader',
             'sass-loader',
           ],
         }
@@ -46,8 +47,13 @@ module.exports = (env, options) => {
     },
     plugins: [
       new MiniCssExtractPlugin({ filename: '../css/app.css' }),
-      new CopyWebpackPlugin([{ from: 'static/', to: '../' }])
+      new CopyWebpackPlugin([{ from: 'static/', to: '../' }]),
+      // new webpack.ProvidePlugin({ // inject ES5 modules as global vars
+      //   $: 'jquery',
+      //   jQuery: 'jquery', 'window.jQuery': 'jquery',
+      //   Popper: ['popper.js', 'default']
+      // })
     ]
-    .concat(devMode ? [new HardSourceWebpackPlugin()] : [])
+      .concat(devMode ? [new HardSourceWebpackPlugin()] : [])
   }
 };

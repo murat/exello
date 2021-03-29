@@ -1,0 +1,56 @@
+.btn {
+  @apply rounded shadow hover:shadow-md  outline-none focus:outline-none ease-linear transition-all duration-150;
+
+  &.sm {
+    @apply px-2 py-2;
+  }
+  &.md {
+    @apply px-4 py-4;
+  }
+  &.lg {
+    @apply px-6 py-6;
+  }
+  &.font-sm {
+    @apply text-sm;
+  }
+  &.font-md {
+    @apply text-base;
+  }
+  &.font-lg {
+    @apply text-lg;
+  }
+  &.border-gray {
+    @apply text-current border-gray-200 hover:border-gray-300;
+  }
+  &.border-red {
+    @apply text-white border-red-500 hover:border-red-700;
+  }
+  &.border-green {
+    @apply text-white border-green-500 hover:border-green-700;
+  }
+  &.border-blue {
+    @apply text-white border-blue-500 hover:border-blue-700;
+  }
+  &.border-indigo {
+    @apply text-white border-indigo-500 hover:border-indigo-700;
+  }
+  &.bg-gray {
+    @apply text-current bg-gray-200 hover:bg-gray-300;
+  }
+  &.bg-red {
+    @apply text-white bg-red-500 hover:bg-red-700;
+  }
+  &.bg-green {
+    @apply text-white bg-green-500 hover:bg-green-700;
+  }
+  &.bg-blue {
+    @apply text-white bg-blue-500 hover:bg-blue-700;
+  }
+  &.bg-indigo {
+    @apply text-white bg-indigo-500 hover:bg-indigo-700;
+  }
+
+  &.just-icon {
+    @apply pt-1;
+  }
+}

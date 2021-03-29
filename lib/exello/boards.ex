@@ -28,6 +28,22 @@ defmodule Exello.Boards do
 
   ## Examples
 
+      iex> get_board(123)
+      %Board{}
+
+      iex> get_board(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_board(id), do: Repo.get_by(Board, slug: id)
+
+  @doc """
+  Gets a single board.
+
+  Raises `Ecto.NoResultsError` if the Board does not exist.
+
+  ## Examples
+
       iex> get_board!(123)
       %Board{}
 
@@ -35,7 +51,7 @@ defmodule Exello.Boards do
       ** (Ecto.NoResultsError)
 
   """
-  def get_board!(id), do: Repo.get!(Board, id)
+  def get_board!(id), do: Repo.get_by!(Board, slug: id)
 
   @doc """
   Creates a board.

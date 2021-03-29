@@ -39,6 +39,10 @@ defmodule ExelloWeb do
 
       # Include shared imports and aliases for views
       unquote(view_helpers())
+
+      def icon_button(assigns \\ []) do
+        render(ExelloWeb.SharedView, "icon_button.html", assigns)
+      end
     end
   end
 

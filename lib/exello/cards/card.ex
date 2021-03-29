@@ -1,11 +1,16 @@
 defmodule Exello.Cards.Card do
-  use Ecto.Schema
+  use Exello.Schema
+  import EctoRanked
   import Ecto.Changeset
 
   schema "cards" do
-    field :body, :string
-    field :title, :string
-    belongs_to :list, Exello.Lists.List
+    field(:body, :string)
+    field(:title, :string)
+    field(:color, :string)
+    field(:card_type, :string)
+    field(:rank, :integer)
+    field(:position, :any, virtual: true)
+    belongs_to(:list, Exello.Lists.List, type: :binary_id)
 
     timestamps()
   end
@@ -13,8 +18,8 @@ defmodule Exello.Cards.Card do
   @doc false
   def changeset(card, attrs) do
     card
-    |> cast(attrs, [:title, :body])
-    |> cast_assoc(:list, with: &Exello.Lists.List.changeset/2)
-    |> validate_required([:title, :body])
+    |> cast(attrs, [:title, :body, :color, :card_type, :list_id, :position])
+    |> validate_required([:title])
+    |> set_rank(scope: :list_id)
   end
 end

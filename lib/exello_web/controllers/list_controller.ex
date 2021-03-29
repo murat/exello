@@ -6,7 +6,7 @@ defmodule ExelloWeb.ListController do
 
   def index(conn, %{"board_id" => board_id} = _params) do
     board = Boards.get_board!(board_id)
-    lists = Lists.list_lists()
+    lists = Lists.list_lists(board_id)
     render(conn, "index.html", board: board, lists: lists)
   end
 
@@ -19,11 +19,11 @@ defmodule ExelloWeb.ListController do
   def create(conn, %{"board_id" => board_id, "list" => list_params}) do
     board = Boards.get_board!(board_id)
 
-    case Lists.create_list(list_params) do
-      {:ok, list} ->
+    case Lists.create_list(board_id, list_params) do
+      {:ok, _} ->
         conn
         |> put_flash(:info, "List created successfully.")
-        |> redirect(to: Routes.board_list_path(conn, :show, board, list))
+        |> redirect(to: Routes.board_path(conn, :show, board))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", board: board, changeset: changeset)
@@ -65,6 +65,6 @@ defmodule ExelloWeb.ListController do
 
     conn
     |> put_flash(:info, "List deleted successfully.")
-    |> redirect(to: Routes.board_list_path(conn, :index, board))
+    |> redirect(to: Routes.board_path(conn, :show, board))
   end
 end

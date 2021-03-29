@@ -1,8 +1,8 @@
 defmodule ExelloWeb.BoardController do
   use ExelloWeb, :controller
 
-  alias Exello.Boards
-  alias Exello.Boards.Board
+  import Ecto.Query, only: [from: 2]
+  alias Exello.{Repo, Boards, Boards.Board, Lists.List, Cards.Card}
 
   def index(conn, _params) do
     boards = Boards.list_boards()
@@ -27,7 +27,16 @@ defmodule ExelloWeb.BoardController do
   end
 
   def show(conn, %{"id" => id}) do
-    board = Boards.get_board!(id)
+    lists_query = from l in List, order_by: l.rank
+    cards_query = from c in Card, order_by: c.rank
+
+    board =
+      from(b in Board,
+        where: b.slug == ^id,
+        preload: [lists: ^lists_query, cards: ^cards_query]
+      )
+      |> Repo.one()
+
     render(conn, "show.html", board: board)
   end
 

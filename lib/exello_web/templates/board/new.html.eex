@@ -1,5 +1,11 @@
-<h1>New Board</h1>
+<div class="container mx-auto">
+  <div class="flex justify-between items-center px-3">
+    <h1 class="text-indigo-500 text-xl font-bold">
+      New Board
+    </h1>
 
-<%= render "form.html", Map.put(assigns, :action, Routes.board_path(@conn, :create)) %>
+    <%= icon_button(icon: "back", class: "btn sm font-sm bg-gray just-icon", to: Routes.board_path(@conn, :index)) %>
+  </div>
 
-<span><%= link "Back", to: Routes.board_path(@conn, :index) %></span>
+  <%= render "form.html", Map.put(assigns, :action, Routes.board_path(@conn, :create)) %>
+</div>

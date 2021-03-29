@@ -1,11 +1,15 @@
 defmodule Exello.Lists.List do
-  use Ecto.Schema
+  use Exello.Schema
+  import EctoRanked
   import Ecto.Changeset
 
   schema "lists" do
-    field :name, :string
-    # field :board_id, :integer
-    belongs_to :board, Exello.Boards.Board
+    field(:name, :string)
+    field(:color, :string)
+    field(:rank, :integer)
+    field(:position, :any, virtual: true)
+    belongs_to(:board, Exello.Boards.Board, type: :binary_id)
+    has_many(:cards, Exello.Cards.Card, on_delete: :delete_all)
 
     timestamps()
   end
@@ -13,8 +17,8 @@ defmodule Exello.Lists.List do
   @doc false
   def changeset(list, attrs) do
     list
-    |> cast(attrs, [:name])
-    |> cast_assoc(:board, with: &Exello.Boards.Board.changeset/2)
+    |> cast(attrs, [:name, :color, :board_id, :position])
     |> validate_required([:name])
+    |> set_rank(scope: :board_id)
   end
 end
